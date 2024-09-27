@@ -1,0 +1,58 @@
+<!-- templates/analytics.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>📊 Analytics Tracking</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="client">Select Client</label>
+            <select class="form-control" id="client" name="client">
+                {% for client in clients %}
+                    <option value="{{ client }}" {% if client == selected_client %}selected{% endif %}>{{ client }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Select Client</button>
+    </form>
+    <hr>
+    <h4>{{ selected_client }} Current Analytics</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <h5>Views: {{ data[selected_client].views }}</h5>
+            <form method="POST">
+                <input type="hidden" name="client" value="{{ selected_client }}">
+                <div class="form-group">
+                    <label for="views">Add Views</label>
+                    <input type="number" class="form-control" id="views" name="views" min="0" value="0">
+                </div>
+                <button type="submit" class="btn btn-success">Update Views</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <h5>Engagements: {{ data[selected_client].engagement }}</h5>
+            <form method="POST">
+                <input type="hidden" name="client" value="{{ selected_client }}">
+                <div class="form-group">
+                    <label for="engagements">Add Engagements</label>
+                    <input type="number" class="form-control" id="engagements" name="engagements" min="0" value="0">
+                </div>
+                <button type="submit" class="btn btn-success">Update Engagements</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <h5>Likes: {{ data[selected_client].likes }}</h5>
+            <form method="POST">
+                <input type="hidden" name="client" value="{{ selected_client }}">
+                <div class="form-group">
+                    <label for="likes">Add Likes</label>
+                    <input type="number" class="form-control" id="likes" name="likes" min="0" value="0">
+                </div>
+                <button type="submit" class="btn btn-success">Update Likes</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <h4>Progress Towards Goals</h4>
+    <img src="data:image/png;base64,{{ plot_image }}" class="img-fluid" alt="Analytics Chart">
+{% endblock %}

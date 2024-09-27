@@ -1,0 +1,31 @@
+<!-- templates/captions.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>✍️ Captions</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="client">Select Client</label>
+            <select class="form-control" id="client" name="client">
+                {% for client in clients %}
+                    <option value="{{ client }}">{{ client }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="caption">Add Caption</label>
+            <input type="text" class="form-control" id="caption" name="caption" placeholder="Enter caption">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Caption</button>
+    </form>
+    <hr>
+    {% for client in clients %}
+        <h4>{{ client }} Captions</h4>
+        <ol>
+            {% for cap in data[client] %}
+                <li>{{ cap }}</li>
+            {% endfor %}
+        </ol>
+    {% endfor %}
+{% endblock %}

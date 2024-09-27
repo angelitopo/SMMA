@@ -1,0 +1,31 @@
+<!-- templates/strategic_objectives.html -->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>🎯 Strategic Objectives</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label for="client">Select Client</label>
+            <select class="form-control" id="client" name="client">
+                {% for client in clients %}
+                    <option value="{{ client }}">{{ client }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="objective">Add Strategic Objective</label>
+            <input type="text" class="form-control" id="objective" name="objective" placeholder="Enter objective">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Objective</button>
+    </form>
+    <hr>
+    {% for client in clients %}
+        <h4>{{ client }} Objectives</h4>
+        <ol>
+            {% for obj in data[client] %}
+                <li>{{ obj }}</li>
+            {% endfor %}
+        </ol>
+    {% endfor %}
+{% endblock %}
